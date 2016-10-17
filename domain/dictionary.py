@@ -44,11 +44,12 @@ class DefinitionAlreadyExistsException(DomainException):
 class Word:
     __name = None  # type: str
     __language = None  # type: Language
-    __definitions = []  # type: List[WordDefinition]
+    __definitions = None  # type: List[WordDefinition]
 
     def __init__(self, name: str, language: Language):
         self.__name = name
         self.__language = language
+        self.__definitions = []
 
     def get_name(self) -> str:
         return self.__name
@@ -78,6 +79,9 @@ class Word:
                 return True
 
         return False
+
+    def get_definitions(self) -> List[WordDefinition]:
+        return self.__definitions
 
 
 class WordInPhraseAlreadyExistsException(DomainException):
@@ -113,3 +117,6 @@ class Phrase:
                 return True
 
         return False
+
+    def get_words(self) -> List[Word]:
+        return self.__words
