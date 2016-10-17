@@ -8,12 +8,22 @@ class Language:
     def __init__(self, name: str):
         self.__name = name
 
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.__dict__ == other.__dict__
+        return NotImplemented
+
 
 class WordDefinition:
     __definition = None  # type: str
 
     def __init__(self, definition: str):
         self.__definition = definition
+
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.__dict__ == other.__dict__
+        return NotImplemented
 
     def get_definition(self) -> str:
         return self.__definition
@@ -35,6 +45,11 @@ class Word:
     def get_name(self) -> str:
         return self.__name
 
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.__dict__ == other.__dict__
+        return NotImplemented
+
     def add_definition(self, word_definition: WordDefinition):
         if self.__is_definition_duplicated(word_definition):
             raise DefinitionAlreadyExistsException(
@@ -51,7 +66,7 @@ class Word:
             return False
 
         for existing_definition in self.__definitions:
-            if existing_definition.get_definition() is definition.get_definition():
+            if existing_definition == definition:
                 return True
 
         return False
@@ -86,7 +101,7 @@ class Phrase:
             return False
 
         for existing_word in self.__words:
-            if existing_word.get_name() is word.get_name():
+            if existing_word == word:
                 return True
 
         return False
