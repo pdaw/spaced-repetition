@@ -2,11 +2,19 @@ from typing import List
 from domain.exception import DomainException
 
 
+class UnsupportedLanguageException(DomainException):
+    pass
+
+
 class Language:
     __name = None  # type: str
+    __supported_languages = ['en']
 
     def __init__(self, name: str):
-        self.__name = name
+        if name in self.__supported_languages:
+            self.__name = name
+        else:
+            raise UnsupportedLanguageException
 
     def __eq__(self, other):
         if type(other) is type(self):
